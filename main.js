@@ -102,8 +102,10 @@ app.controller('userCtrl', function ($scope, $mdToast) {
          */
         var user = db[dataToSubmit.email];
         if (dataToSubmit.password == user.password) {
-            setCookie(dataToSubmit.email, user.token, 60 * 1000);
-            window.location = "/userCred/home.html?email=" + dataToSubmit.email + "&token=" + user.token;
+            var newToken = randomId(10);
+            db[dataToSubmit.email].token = newToken;
+            setCookie(dataToSubmit.email, newToken, 60 * 1000);
+            window.location = "/userCred/home.html?email=" + dataToSubmit.email + "&token=" + newToken;
         }
         else {
             $mdToast.show(
