@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login/Signup</title>
+    <script src="bower_components/angular/angular.js" type="text/javascript"></script>
+    <script src="bower_components/angular-animate/angular-animate.js" type="text/javascript"></script>
+    <script src="bower_components/angular-aria/angular-aria.js" type="text/javascript"></script>
+    <script src="bower_components/angular-material/angular-material.js" type="text/javascript"></script>
+    <script src="bower_components/angular-messages/angular-messages.js" type="text/javascript"></script>
+    <script src="main.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+
+<div ng-app="user" ng-controller="userCtrl">
+    <div style="center; width: 500px; margin: 0 auto;">
+        <div flex-xs flex-gt-xs="100">
+            <md-card>
+                <md-content class="md-padding">
+                    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+                        <md-nav-item md-nav-click="goto('1')" name="login">Log In</md-nav-item>
+                        <md-nav-item md-nav-click="goto('2')" name="signup">Register</md-nav-item>
+                    </md-nav-bar>
+                    <div class="signupdiv md-padding" ng-show="signupDivValue" layout="column">
+                        <md-content layout-gt-sm="column" layout-padding>
+                            <form name="signupForm">
+                                <div layout-gt-sm="column">
+                                    <md-input-container>
+                                        <label>Name</label>
+                                        <input ng-model="user.name" type="text" name="namenew"required minlength="10" maxlength="30"
+                                               ng-pattern="/^flexiple_([a-z_]*$)/">
+                                        <div ng-messages="signupForm.namenew.$error" role="alert">
+                                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                Name between 3 to 30 characters, should start with flexiple_, no spaces,
+                                                small characters
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Email</label>
+                                        <input ng-model="user.newEmail" type="email" required name="newEmail"
+                                               ng-pattern="/^[a-zA-z0-9_.]+@[a-zA-z]+.in$/">
+                                        <div ng-messages="signupForm.newEmail.$error" role="alert">
+                                            <div ng-message-exp="['required', 'pattern']">
+                                                Email is mandatory and should end with .in
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Password</label>
+                                        <input ng-model="user.newPassword" type="password" name="passwordNew" required
+                                               ng-pattern="/(?=^.{4,8}$)(?=^[^A-Z]*([A-Z][^A-Z]*){2}$)(?=^[^!@#$%^&*()_+]*([!@#$%^&*()_+][^!@#$%^&*()_+]*){2}$)/">
+                                        <div ng-messages="signupForm.passwordNew.$error" role="alert">
+                                            <div ng-message-exp="['required', 'pattern']">
+                                                Password should have exactly two special character and two upper case letter
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Confirm Password</label>
+                                        <input ng-model="user.confirmPassword" type="password" required ng-change="confirmPasswordChange()">
+                                        <div class="hint" ng-show="confirmPasswordAlert">
+                                            Passwords not matching
+                                        </div>
+                                    </md-input-container>
+                                    <md-button class="md-raised md-primary" ng-click="submitSignUp()">Submit</md-button>
+                                </div>
+                            </form>
+                        </md-content>
+                    </div>
+                    <div class="logindiv md-padding" ng-show="loginDivValue">
+                        <md-content layout-gt-sm="column" layout-padding>
+                            <div layout-gt-sm="column">
+                                <md-input-container>
+                                    <label>Email</label>
+                                    <input ng-model="user.email" type="email">
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Password</label>
+                                    <input ng-model="user.password" type="password">
+                                </md-input-container>
+                                <md-checkbox ng-model="data.fp" aria-label="Forgot Password">
+                                    Forgot Password
+                                </md-checkbox>
+                                <md-button class="md-raised md-primary" ng-click="submitLogIn()">Get In!</md-button>
+                            </div>
+                        </md-content>
+                    </div>
+                </md-content>
+            </md-card>
+        </div>
+    </div>
+</div>
+</body>
+</html>
